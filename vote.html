@@ -8,7 +8,6 @@
   <title>Vote & Nominate</title>
 
   <style>
-    /* Clean embed container so nothing renders “outside” the ballot */
     .embed-shell{
       border:1px solid rgba(255,255,255,.12);
       border-radius:18px;
@@ -19,10 +18,21 @@
       width:100%;
       border:0;
       display:block;
-      min-height:1100px; /* fallback if auto-resize can't run */
+      min-height:1100px;
       background:transparent;
     }
     .tiny{font-size:.95rem}
+    .status-pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:7px 12px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(0,0,0,.22);
+      color:var(--muted);
+      backdrop-filter: blur(10px);
+    }
+    .s-dot{width:9px;height:9px;border-radius:999px;background:rgba(255,255,255,.35)}
+    .s-dot.ok{background:rgba(92,200,255,.95); box-shadow:0 0 18px rgba(92,200,255,.6)}
+    .s-dot.bad{background:rgba(255,209,102,.95); box-shadow:0 0 18px rgba(255,209,102,.45)}
   </style>
 </head>
 
@@ -35,12 +45,14 @@
           <small>Divine Unity GPT Secretariat</small>
           <div class="hero-meta">
             <span class="pill"><span class="dot"></span>Global Referendum (Pilot)</span>
-            <span class="pill">Jan 3 → Feb 2, 2026 • America/Los_Angeles</span>
+            <span class="pill">Automated submission • Receipt ID • Live results</span>
           </div>
         </div>
       </div>
       <h1>Vote &amp; Nominate</h1>
-      <p class="hero-sub">Use the official ballot. Export JSON locally. Submit via your chosen coordination hub.</p>
+      <p class="hero-sub">
+        Complete the official ballot below. When you click <strong>Submit Vote Securely</strong>, your submission is transmitted automatically to the official counting service.
+      </p>
     </div>
   </div>
 
@@ -53,7 +65,7 @@
         <a href="about.html">Background</a>
         <a href="leadership.html">Leadership</a>
         <a href="faq.html">Guidelines & FAQ</a>
-        <a href="transparency.html">Results & Transparency</a>
+        <a href="results.html">Results & Transparency</a>
       </div>
       <div class="nav-cta">
         <a class="btn secondary" href="how-voting-works.html">Start here</a>
@@ -64,24 +76,32 @@
 
   <main>
     <section class="section card">
-      <h2>Before you begin</h2>
+      <h2>How submission works now</h2>
       <p class="muted tiny">
-        This ballot runs in your browser. <strong>Nothing is submitted automatically.</strong>
-        When finished, click <strong>Export Submission (JSON)</strong>. Keep the file as your receipt and send it to your chosen coordination hub.
+        The referendum is fully automated: you submit once, receive a <strong>Receipt ID</strong>, and anonymised aggregates update on the
+        <a href="results.html"><u>Results & Transparency</u></a> page.
       </p>
       <div class="callout tiny">
-        <strong>Need help?</strong>
-        Read <a href="how-voting-works.html"><u>How Voting Works</u></a> and
-        <a href="faq.html"><u>Guidelines & FAQ</u></a>.
-        Counting and publishing is covered on <a href="transparency.html"><u>Results & Transparency</u></a>.
+        <strong>Privacy-first:</strong> no legal name is required. Only anonymised totals are displayed publicly.
+        If the counting service is temporarily unavailable, the ballot will offer a fallback manual export so you are never blocked.
+      </div>
+
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:12px; align-items:center">
+        <span id="svcStatus" class="status-pill">
+          <span id="svcDot" class="s-dot"></span>
+          <span id="svcText">Checking counting service…</span>
+        </span>
+        <span class="status-pill">
+          <span class="s-dot ok"></span>
+          Source: <span class="kbd">sovereign-vote.oliverluxthorley.workers.dev</span>
+        </span>
       </div>
     </section>
 
     <section class="section card">
       <h2>Official Ballot & Nominations</h2>
       <p class="muted tiny">
-        If the ballot does not appear, confirm this file exists in your site root:
-        <span class="kbd">Official_Ballot_And_Nominations.html</span>
+        If the ballot does not appear, confirm the ballot file exists in your site root.
       </p>
 
       <div class="embed-shell">
@@ -95,16 +115,16 @@
       </div>
 
       <p class="muted tiny" style="margin-top:12px">
-        Tip: after exporting, keep your JSON file as your receipt until results are published.
+        After submission, keep your downloaded receipt JSON until results are finalised.
       </p>
     </section>
 
     <section class="section card">
-      <h2>Submission reminder</h2>
+      <h2>Quick links</h2>
       <ul class="muted tiny">
-        <li>Export the JSON file from the ballot page.</li>
-        <li>Do not post your JSON publicly.</li>
-        <li>Send it to your preferred coordination hub (email/secure upload).</li>
+        <li><a href="how-voting-works.html"><u>How Voting Works</u></a> — step-by-step explainer</li>
+        <li><a href="faq.html"><u>Guidelines & FAQ</u></a> — privacy, eligibility, and integrity safeguards</li>
+        <li><a href="results.html"><u>Results & Transparency</u></a> — live anonymised totals</li>
       </ul>
     </section>
   </main>
@@ -117,7 +137,24 @@
   </footer>
 
   <script>
-    // Auto-resize iframe to fit ballot content (works because it's same-origin on your domain)
+    const WORKER_BASE = "https://sovereign-vote.oliverluxthorley.workers.dev";
+
+    // Status badge
+    (async function(){
+      const dot = document.getElementById("svcDot");
+      const txt = document.getElementById("svcText");
+      try{
+        const r = await fetch(WORKER_BASE + "/healthz", { cache:"no-store" });
+        if(!r.ok) throw new Error("bad");
+        dot.classList.add("ok");
+        txt.textContent = "Counting service: Online";
+      }catch(e){
+        dot.classList.add("bad");
+        txt.textContent = "Counting service: Unreachable (ballot will offer fallback)";
+      }
+    })();
+
+    // Auto-resize iframe to ballot height (same-origin only)
     (function(){
       const f = document.getElementById('ballotFrame');
       if(!f) return;
@@ -130,9 +167,7 @@
           const h2 = doc.body ? doc.body.scrollHeight : 0;
           const h = Math.max(h1, h2);
           if(h && Number.isFinite(h)) f.style.height = (h + 24) + 'px';
-        }catch(e){
-          // If blocked, ignore — min-height fallback stays.
-        }
+        }catch(e){}
       }
 
       f.addEventListener('load', () => {
