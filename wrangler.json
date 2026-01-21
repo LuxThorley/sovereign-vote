@@ -1,0 +1,16 @@
+{
+	"compatibility_date": "2025-10-08",
+	"main": "src/index.ts",
+	"name": "sovereign-vote",
+	"upload_source_maps": true,
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_id": "cfbc22ca-35ac-40e1-b84c-1dd01b30affe",
+			"database_name": "sovereign_vote"
+		}
+	],
+	"observability": {
+		"enabled": true
+	}
+}
