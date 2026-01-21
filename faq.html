@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="theme-color" content="#060a18"/>
+  <link rel="stylesheet" href="assets/style.css"/>
+  <title>Guidelines & FAQ</title>
+</head>
+
+<body>
+
+<div class="site-hero">
+  <div class="hero-inner">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div>
+        <small>Divine Unity GPT Secretariat</small>
+        <div class="hero-meta">
+          <span class="pill"><span class="dot"></span>Global Referendum (Pilot)</span>
+          <span class="pill">Guidelines • Privacy • Transparency</span>
+        </div>
+      </div>
+    </div>
+    <h1>Guidelines & FAQ</h1>
+    <p class="hero-sub">
+      Clear guidance on participation, submission, privacy, AI involvement, and how results are counted.
+    </p>
+  </div>
+</div>
+
+<div class="navwrap">
+  <div class="nav-inner">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="vote.html">Vote & Nominate</a>
+      <a href="how-voting-works.html">How Voting Works</a>
+      <a href="about.html">Background</a>
+      <a href="leadership.html">Leadership</a>
+      <a href="faq.html">Guidelines & FAQ</a>
+      <a href="transparency.html">Results & Transparency</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn secondary" href="how-voting-works.html">Start here</a>
+      <a class="btn" href="vote.html">Participate</a>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- SECTION: PARTICIPATION -->
+<section class="section card">
+  <h2>Who can participate?</h2>
+  <p class="muted">
+    Participation is open to adults (18+) worldwide. This referendum is a
+    <strong>voluntary civic pilot</strong>, not a statutory government election.
+  </p>
+  <ul class="muted">
+    <li>You do not need to provide your legal name.</li>
+    <li>You may participate from any country or region.</li>
+    <li>Participation is entirely voluntary and consent-based.</li>
+  </ul>
+</section>
+
+<!-- SECTION: HOW TO VOTE -->
+<section class="section card">
+  <h2>How do I vote or nominate?</h2>
+  <p class="muted">
+    Go to the <a href="vote.html"><u>Vote & Nominate</u></a> page and complete the official ballot.
+    Once finished, click <strong>Submit Vote Securely</strong>.
+  </p>
+  <div class="callout">
+    <strong>No emails. No file uploads. No intermediaries.</strong><br/>
+    Submissions are transmitted automatically to the counting service.
+  </div>
+</section>
+
+<!-- SECTION: SUBMISSION -->
+<section class="section card">
+  <h2>What happens when I submit?</h2>
+  <ol class="muted">
+    <li>Your submission is validated for required fields.</li>
+    <li>A pseudonymous deduplication key prevents duplicate counting.</li>
+    <li>Your vote is recorded and included in live aggregates.</li>
+    <li>You receive a <strong>Receipt ID</strong>.</li>
+    <li>A small receipt JSON file downloads automatically for your records.</li>
+  </ol>
+</section>
+
+<!-- SECTION: RECEIPTS -->
+<section class="section card">
+  <h2>What is the receipt JSON file?</h2>
+  <p class="muted">
+    The receipt JSON file is <strong>your proof of submission</strong>. It contains:
+  </p>
+  <ul class="muted">
+    <li>Your Receipt ID</li>
+    <li>The time your submission was received</li>
+    <li>A cryptographic hash of your submission</li>
+  </ul>
+  <p class="muted">
+    It does <strong>not</strong> contain your full ballot answers or personal information.
+    Keep it until results are finalised.
+  </p>
+</section>
+
+<!-- SECTION: PRIVACY -->
+<section class="section card">
+  <h2>Is my vote anonymous?</h2>
+  <p class="muted">
+    The system is designed to minimise personal data.
+  </p>
+  <ul class="muted">
+    <li>No legal names are required.</li>
+    <li>No IP addresses are published.</li>
+    <li>Only anonymised aggregates are displayed publicly.</li>
+  </ul>
+  <div class="callout">
+    Transparency means publishing <strong>methods and totals</strong>, not exposing individuals.
+  </div>
+</section>
+
+<!-- SECTION: DEDUPLICATION -->
+<section class="section card">
+  <h2>How are duplicate votes prevented?</h2>
+  <p class="muted">
+    Each submission is associated with a pseudonymous identifier stored locally in your browser.
+    The counting service uses a cryptographic deduplication key to ensure:
+  </p>
+  <ul class="muted">
+    <li>Each participant is counted once per voting window.</li>
+    <li>Accidental re-submissions are not double-counted.</li>
+  </ul>
+  <p class="muted">
+    If you intentionally regenerate your identifier, your submission may be treated as new.
+  </p>
+</section>
+
+<!-- SECTION: AI -->
+<section class="section card">
+  <h2>Is AI deciding the results?</h2>
+  <p class="muted">
+    <strong>No.</strong> Vote totals are counted deterministically by the counting service.
+  </p>
+  <p class="muted">
+    AI systems (including Malcolm AI) may be used to:
+  </p>
+  <ul class="muted">
+    <li>Assist with anomaly detection (e.g. spam patterns)</li>
+    <li>Generate high-level narrative summaries</li>
+    <li>Support transparency and reporting</li>
+  </ul>
+  <div class="callout">
+    AI does not override votes, invent results, or determine outcomes.
+  </div>
+</section>
+
+<!-- SECTION: RESULTS -->
+<section class="section card">
+  <h2>Where can I see the results?</h2>
+  <p class="muted">
+    Live anonymised totals are published on the
+    <a href="transparency.html"><u>Results & Transparency</u></a> page.
+  </p>
+  <p class="muted">
+    This page refreshes automatically and shows:
+  </p>
+  <ul class="muted">
+    <li>Total submissions counted</li>
+    <li>Approval and preference rates</li>
+    <li>Regional balance indicators</li>
+  </ul>
+</section>
+
+<!-- SECTION: LEGITIMACY -->
+<section class="section card">
+  <h2>Is this an official government election?</h2>
+  <p class="muted">
+    No. This referendum is a <strong>voluntary, exploratory civic initiative</strong>.
+    It does not replace or override any statutory electoral process.
+  </p>
+</section>
+
+<!-- SECTION: ERRORS -->
+<section class="section card">
+  <h2>What if submission fails?</h2>
+  <p class="muted">
+    If the live submission service is unavailable, the system will automatically offer
+    a manual download of your submission file so you are never blocked from participating.
+  </p>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>© 2026 Divine Unity GPT Secretariat • Earth-Centered • Consent-Based • Restorative</div>
+    <div style="margin-top:8px">
+      <small class="muted">Voluntary civic pilot — does not replace government elections.</small>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

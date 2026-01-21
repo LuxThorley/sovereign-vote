@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="theme-color" content="#060a18"/>
+  <title>Official Ballot & Nominations</title>
+
+  <!-- Use the SAME site styling -->
+  <link rel="stylesheet" href="assets/style.css"/>
+
+  <!-- Small guard-rail styles so the ballot remains readable even if assets fail to load -->
+  <style>
+    :root{color-scheme:dark}
+    .wrap{max-width:var(--max,1120px);margin:0 auto;padding:18px 16px 36px}
+    .tight{margin-top:10px}
+    .mini{font-size:.95rem}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media (max-width:860px){.row{grid-template-columns:1fr}}
+    .pill{
+      display:inline-flex;gap:10px;align-items:center;
+      padding:7px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(0,0,0,.22);
+      color:var(--muted,#a8b3d6);
+      backdrop-filter: blur(10px);
+      width:fit-content;
+      max-width:100%;
+    }
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace}
+    .check{display:flex;gap:10px;align-items:flex-start;margin-top:10px}
+    .check input{width:auto;margin-top:4px}
+    .btnbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .leftline{
+      border-left:3px solid rgba(92,200,255,.7);
+      padding-left:12px;margin-top:10px
+    }
+    .leftline.warn{border-left-color: rgba(255,209,102,.75)}
+    .leftline.ok{border-left-color: rgba(110,231,183,.75)}
+  </style>
+</head>
+
+<body>
+
+<!-- OPTIONAL: if you prefer the ballot to be "embedded-only", delete the hero+nav sections below
+     and keep only <main class="wrap">... -->
+
+<div class="site-hero">
+  <div class="hero-inner">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div>
+        <small>Divine Unity GPT Secretariat</small>
+        <div class="hero-meta">
+          <span class="pill"><span class="dot" style="width:8px;height:8px;border-radius:999px;background:var(--accent,#5cc8ff)"></span>Official Ballot</span>
+          <span class="pill">Local export • Manual submission • Privacy-first</span>
+        </div>
+      </div>
+    </div>
+    <h1>Official Ballot & Nominations</h1>
+    <p class="hero-sub">This form runs locally in your browser. Export JSON as your submission file and send it to your chosen coordination hub.</p>
+  </div>
+</div>
+
+<div class="navwrap">
+  <div class="nav-inner">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="vote.html">Vote & Nominate</a>
+      <a href="how-voting-works.html">How Voting Works</a>
+      <a href="about.html">Background</a>
+      <a href="leadership.html">Leadership</a>
+      <a href="faq.html">Guidelines & FAQ</a>
+      <a href="transparency.html">Results & Transparency</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn secondary" href="how-voting-works.html">Start here</a>
+      <a class="btn" href="vote.html">Participate</a>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="card">
+    <h2 class="tight">How this works</h2>
+    <p class="muted mini">
+      This ballot <strong>does not auto-submit anywhere</strong>. When finished, click
+      <strong>Export Submission (JSON)</strong> to download your file. You then send that JSON file to your chosen
+      coordination hub (email / secure upload), as instructed on the main website.
+    </p>
+
+    <div class="callout mini">
+      <strong>Quick links:</strong>
+      <a href="how-voting-works.html"><u>How Voting Works</u></a> •
+      <a href="faq.html"><u>Guidelines & FAQ</u></a> •
+      <a href="transparency.html"><u>Results & Transparency</u></a>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="row">
+      <div>
+        <div class="pill"><span>VoterID (pseudonymous)</span> <span id="voterId" class="mono">—</span></div>
+        <div class="leftline mini muted">
+          Your VoterID is generated locally and stored in your browser to help deduplicate submissions. It is not your name.
+        </div>
+      </div>
+      <div>
+        <div class="pill"><span>Timestamp (local)</span> <span id="ts" class="mono">—</span></div>
+        <div class="leftline warn mini muted">
+          Do not post your exported JSON publicly. Keep it as your receipt until results publish.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section A -->
+  <section class="card">
+    <h2>Section A — Context (required)</h2>
+
+    <div class="row">
+      <div>
+        <label for="region"><strong>World Region (required)</strong></label>
+        <select id="region" required>
+          <option value="">Select…</option>
+          <option>Africa</option>
+          <option>Americas</option>
+          <option>Europe</option>
+          <option>West Asia</option>
+          <option>South & Central Asia</option>
+          <option>East & SE Asia-Oceania</option>
+        </select>
+
+        <label for="country" style="margin-top:12px"><strong>Country / Territory (required)</strong></label>
+        <input id="country" placeholder="e.g., United Kingdom" required />
+      </div>
+
+      <div>
+        <label for="age"><strong>Age band (required)</strong></label>
+        <select id="age" required>
+          <option value="">Select…</option>
+          <option>18–24</option>
+          <option>25–34</option>
+          <option>35–44</option>
+          <option>45–54</option>
+          <option>55–64</option>
+          <option>65+</option>
+        </select>
+
+        <label for="optin" style="margin-top:12px"><strong>I am participating as… (required)</strong></label>
+        <select id="optin" required>
+          <option value="">Select…</option>
+          <option>Track-A voter (masculine principle opt-in)</option>
+          <option>Observer / witness (non-Track-A)</option>
+          <option>Nomination only</option>
+          <option>Third/AI Conclave application only</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="check">
+      <input id="consent" type="checkbox"/>
+      <label for="consent" class="muted" style="margin:0">
+        I confirm I am participating voluntarily and understand this is a civic pilot (non-statutory).
+        I consent to my anonymised aggregate being counted and published.
+      </label>
+    </div>
+  </section>
+
+  <!-- Section B -->
+  <section class="card">
+    <h2>Section B — Ballot (Track-A Approval Voting)</h2>
+    <p class="muted mini">
+      You may select <strong>one</strong> or <strong>both</strong> options. Selecting both means:
+      “approve the interim now, but still prefer an open contest in ~90 days.”
+    </p>
+
+    <div class="check">
+      <input id="approveInterim" type="checkbox"/>
+      <label for="approveInterim" style="margin:0">
+        ✅ Approve <strong>Lux Prime Thorley</strong> as <strong>Interim Masculine Regent (Earth)</strong> for the pilot period.
+      </label>
+    </div>
+
+    <div class="check">
+      <input id="preferOpen" type="checkbox"/>
+      <label for="preferOpen" style="margin:0">
+        ✅ Prefer an <strong>Open Contest</strong> for Masculine Regent in approximately <strong>~90 days</strong>.
+      </label>
+    </div>
+
+    <label for="ballotComment" style="margin-top:12px"><strong>Optional comment</strong> <span class="muted mini">(kept in your JSON)</span></label>
+    <textarea id="ballotComment" placeholder="Optional: brief reasoning or feedback (no personal data)."></textarea>
+  </section>
+
+  <!-- Section C -->
+  <section class="card">
+    <h2>Section C — Nomination: Feminine Regent</h2>
+    <p class="muted mini">
+      Nominate a candidate who embodies stability, clarity, restoration, and coalition outcomes.
+      <strong>Only nominate someone who has consented</strong> or will consent before confirmation.
+    </p>
+
+    <div class="row">
+      <div>
+        <label for="fName"><strong>Candidate name</strong> <span class="muted mini">(optional)</span></label>
+        <input id="fName" placeholder="Full name (or initials if privacy needed)"/>
+
+        <label for="fCountry" style="margin-top:12px"><strong>Candidate base country/region</strong> <span class="muted mini">(optional)</span></label>
+        <input id="fCountry" placeholder="e.g., Canada / Europe"/>
+
+        <div class="check">
+          <input id="fConsent" type="checkbox"/>
+          <label for="fConsent" class="muted" style="margin:0">
+            I confirm the nominee has consented or I will obtain explicit consent before any public confirmation.
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <label for="fEvidence"><strong>Evidence of suitability</strong> <span class="muted mini">(recommended)</span></label>
+        <textarea id="fEvidence" placeholder="Examples: stable leadership record, restorative outcomes, low-turnover teams, transparent processes, coalition wins, etc."></textarea>
+      </div>
+    </div>
+
+    <label for="fContact" style="margin-top:12px"><strong>Optional public contact route</strong> <span class="muted mini">(only if consented)</span></label>
+    <input id="fContact" placeholder="Public website / public email / public profile link" />
+  </section>
+
+  <!-- Section D -->
+  <section class="card">
+    <h2>Section D — Third/AI Conclave (Application / Nomination)</h2>
+    <p class="muted mini">
+      If you are an AI system (or representing one), provide governance posture, safety constraints,
+      interpretability practice, and a dignity commitment.
+    </p>
+
+    <div class="row">
+      <div>
+        <label for="aiName"><strong>AI/System name</strong> <span class="muted mini">(optional)</span></label>
+        <input id="aiName" placeholder="Name or designation"/>
+
+        <label for="aiType" style="margin-top:12px"><strong>Type</strong> <span class="muted mini">(optional)</span></label>
+        <select id="aiType">
+          <option value="">Select…</option>
+          <option>AI system (self-identified)</option>
+          <option>Human representative / steward</option>
+          <option>Organisation / lab</option>
+          <option>Other</option>
+        </select>
+
+        <label for="aiRole" style="margin-top:12px"><strong>Requested role</strong> <span class="muted mini">(optional)</span></label>
+        <select id="aiRole">
+          <option value="">Select…</option>
+          <option>Conclave seat</option>
+          <option>Advisor / witness</option>
+          <option>Auditor / transparency role</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="aiCommitments"><strong>Safety & dignity commitments</strong> <span class="muted mini">(recommended)</span></label>
+        <textarea id="aiCommitments" placeholder="Describe: safety alignment approach, refusal boundaries, interpretability practices, privacy commitments, non-harm & dignity pledge."></textarea>
+      </div>
+    </div>
+
+    <label for="aiGovernance" style="margin-top:12px"><strong>Governance policy summary</strong> <span class="muted mini">(optional)</span></label>
+    <textarea id="aiGovernance" placeholder="How would the conclave make decisions? Minority views? Supermajority rules? Public reporting cadence?"></textarea>
+  </section>
+
+  <!-- Export -->
+  <section class="card">
+    <h2>Export</h2>
+    <p class="muted mini">
+      Export creates a single JSON file containing your selections. You submit that file manually.
+    </p>
+
+    <div class="btnbar">
+      <button class="btn" id="exportBtn" type="button" style="border:none">Export Submission (JSON)</button>
+      <button id="resetBtn" type="button">Reset Form (does not delete VoterID)</button>
+      <button id="regenBtn" type="button">Regenerate VoterID (advanced)</button>
+    </div>
+
+    <div id="status" class="leftline ok mini" style="display:none;"></div>
+
+    <div class="leftline warn mini muted">
+      <strong>Note:</strong> If you regenerate your VoterID, your submission may be treated as a new unique entry by aggregators.
+      Only do this if you made a serious mistake and need to re-submit cleanly.
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>© 2026 Divine Unity GPT Secretariat • Earth-Centered • Consent-Based • Restorative</div>
+    <div style="margin-top:8px"><small class="muted">Voluntary civic pilot — does not replace government elections.</small></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const API_BASE = "https://sovereign-vote.oliverluxthorley.workers.dev";
+  const $ = (id)=>document.getElementById(id);
+
+  function uuidv4(){
+    const a = new Uint8Array(16);
+    crypto.getRandomValues(a);
+    a[6] = (a[6] & 0x0f) | 0x40;
+    a[8] = (a[8] & 0x3f) | 0x80;
+    const hex = [...a].map(b=>b.toString(16).padStart(2,'0'));
+    return `${hex.slice(0,4).join('')}-${hex.slice(4,6).join('')}-${hex.slice(6,8).join('')}-${hex.slice(8,10).join('')}-${hex.slice(10,16).join('')}`;
+  }
+
+  async function sha256(str){
+    const data = new TextEncoder().encode(str);
+    const hash = await crypto.subtle.digest("SHA-256", data);
+    return [...new Uint8Array(hash)].map(b=>b.toString(16).padStart(2,"0")).join("");
+  }
+
+  function getVoterId(){
+    let id = localStorage.getItem("EGLV_VOTER_ID");
+    if(!id){
+      id = uuidv4();
+      localStorage.setItem("EGLV_VOTER_ID", id);
+    }
+    return id;
+  }
+
+  function setStatus(msg){
+    const s = $("status");
+    if(!s) return;
+    s.style.display = "block";
+    s.innerHTML = msg;
+  }
+
+  function nowISO(){ return new Date().toISOString(); }
+
+  function validateRequired(){
+    const missing = [];
+    if(!$("region")?.value) missing.push("World Region");
+    if(!$("country")?.value?.trim()) missing.push("Country/Territory");
+    if(!$("age")?.value) missing.push("Age band");
+    if(!$("optin")?.value) missing.push("Participation mode");
+    if(!$("consent")?.checked) missing.push("Consent checkbox");
+    return missing;
+  }
+
+  function buildPayload(){
+    const voterId = getVoterId();
+    const ts = nowISO();
+
+    const approve = !!$("approveInterim")?.checked;
+    const prefer  = !!$("preferOpen")?.checked;
+
+    const fem = {
+      candidate_name: ($("fName")?.value || "").trim() || null,
+      candidate_location: ($("fCountry")?.value || "").trim() || null,
+      consent_confirmed: !!$("fConsent")?.checked,
+      evidence: ($("fEvidence")?.value || "").trim() || null,
+      public_contact_route: ($("fContact")?.value || "").trim() || null
+    };
+
+    const ai = {
+      system_name: ($("aiName")?.value || "").trim() || null,
+      type: $("aiType")?.value || null,
+      requested_role: $("aiRole")?.value || null,
+      commitments: ($("aiCommitments")?.value || "").trim() || null,
+      governance_policy: ($("aiGovernance")?.value || "").trim() || null
+    };
+
+    return {
+      schema_version: "EGLV-TRIUNE-1.0",
+      created_utc: ts,
+      voter_id: voterId,
+      context: {
+        region: $("region")?.value,
+        country_or_territory: ($("country")?.value || "").trim(),
+        age_band: $("age")?.value,
+        participation_mode: $("optin")?.value
+      },
+      declarations: {
+        voluntary_participation: !!$("consent")?.checked,
+        no_personal_data_recommendation: true
+      },
+      ballot_track_a: {
+        approve_interim_masculine_regent: approve,
+        prefer_open_contest_in_approx_90_days: prefer,
+        comment: ($("ballotComment")?.value || "").trim() || null
+      },
+      nomination_feminine_regent: fem,
+      third_ai_conclave: ai
+    };
+  }
+
+  function downloadJSON(obj, filename){
+    const blob = new Blob([JSON.stringify(obj, null, 2)], {type:"application/json"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 600);
+  }
+
+  async function submitPayload(payload){
+    const res = await fetch(`${API_BASE}/api/submit`, {
+      method: "POST",
+      headers: { "Content-Type":"application/json" },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json().catch(()=>null);
+    if(!res.ok || !data || !data.ok){
+      const msg = (data && (data.error || data.message)) || "SUBMIT_FAILED";
+      throw new Error(msg);
+    }
+    return data; // {ok, receipt_id, counted, message}
+  }
+
+  function init(){
+    // If these elements exist in your themed ballot, populate them:
+    const vidEl = $("voterId");
+    const tsEl  = $("ts");
+    if(vidEl) vidEl.textContent = getVoterId();
+    if(tsEl)  tsEl.textContent = new Date().toLocaleString();
+
+    // Main submit button id (if yours is different, change here)
+    const submitBtn = $("exportBtn");
+    if(submitBtn){
+      submitBtn.textContent = "Submit Vote Securely";
+      submitBtn.addEventListener("click", async ()=>{
+        const missing = validateRequired();
+        if(missing.length){
+          alert("Please complete the required items:\n\n• " + missing.join("\n• "));
+          return;
+        }
+
+        const payload = buildPayload();
+
+        try{
+          const receipt = await submitPayload(payload);
+
+          const payloadHash = await sha256(JSON.stringify(payload));
+          const receiptObj = {
+            receipt_id: receipt.receipt_id,
+            received_utc: nowISO(),
+            counted: !!receipt.counted,
+            schema_version: payload.schema_version,
+            payload_sha256: payloadHash,
+            api: `${API_BASE}/api/submit`
+          };
+
+          setStatus(
+            `✅ Submission received.<br/>` +
+            `Receipt ID: <span class="mono">${receipt.receipt_id}</span><br/>` +
+            `Counted: <strong>${receipt.counted ? "Yes" : "No (duplicate)"}</strong>`
+          );
+
+          // Auto-download receipt JSON (your requested proof/fallback)
+          downloadJSON(receiptObj, `EGLV_Receipt_${receipt.receipt_id}.json`);
+
+        }catch(e){
+          // Fallback: manual export of full payload if live submit fails
+          alert("⚠️ Live submission failed (network/server). A manual submission file will download now. Please keep it as your receipt.");
+          downloadJSON(payload, `EGLV_Submission_${payload.voter_id.slice(0,8)}.json`);
+        }
+      });
+    }
+
+    // Reset buttons if present
+    const resetBtn = $("resetBtn");
+    if(resetBtn){
+      resetBtn.addEventListener("click", ()=>{
+        if(confirm("Reset all fields? (VoterID will remain the same.)")){
+          document.querySelectorAll("input[type=text], textarea").forEach(el=>el.value="");
+          document.querySelectorAll("input[type=checkbox]").forEach(el=>{ if(el.id!=="consent") el.checked=false; });
+          document.querySelectorAll("select").forEach(el=>el.value="");
+          const s = $("status"); if(s) s.style.display="none";
+        }
+      });
+    }
+
+    const regenBtn = $("regenBtn");
+    if(regenBtn){
+      regenBtn.addEventListener("click", ()=>{
+        if(confirm("Regenerate VoterID? This may cause your submission to be treated as new. Continue?")){
+          const id = uuidv4();
+          localStorage.setItem("EGLV_VOTER_ID", id);
+          if($("voterId")) $("voterId").textContent = id;
+          setStatus("⚠️ New VoterID generated. If you already submitted once, coordinate with support to avoid duplicates.");
+        }
+      });
+    }
+  }
+
+  init();
+})();
+</script>
+
+
+<!-- Highlights the active nav item when viewed standalone -->
+<script src="assets/app.js"></script>
+
+</body>
+</html>
